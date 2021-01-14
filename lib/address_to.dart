@@ -21,7 +21,7 @@ class _AddressTo extends State<AddressTo>{
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.amber,
-          title: Text("Chọn điểm bắt đầu", style: TextStyle(color: Colors.black),),
+          title: Text("Chọn điểm kết thúc", style: TextStyle(color: Colors.black),),
           bottom: TabBar(
             labelColor: Colors.black,
             tabs: [Tab(text: "Địa điểm"), Tab(text: "Điểm dừng bus")],
@@ -106,7 +106,7 @@ class _AddressTo extends State<AddressTo>{
             ],
           ),
           //search bus stop
-          Column(
+          Column (
             children: [
               Container(
                 margin: EdgeInsets.only(left: 8, top: 8, right: 8),

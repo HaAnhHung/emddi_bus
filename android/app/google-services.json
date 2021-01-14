@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "61693965459",
+    "project_id": "emddibus",
+    "storage_bucket": "emddibus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61693965459:android:f6ab0b79b39ba7786dc966",
+        "android_client_info": {
+          "package_name": "com.example.emddi_bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61693965459-sil7qkrnvhp9jbkvnsoccbs703a76cl6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.emddi_bus",
+            "certificate_hash": "9d5007df84c6123721162fd33aca98bfea7b9a8d"
+          }
+        },
+        {
+          "client_id": "61693965459-o51q4d3q32uhht9oe8i47pv095lngn4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfobeKWTt3W3KaLHno1JJK2pwvBKBKIk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61693965459-o51q4d3q32uhht9oe8i47pv095lngn4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

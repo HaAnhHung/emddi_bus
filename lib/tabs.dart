@@ -21,15 +21,27 @@ class Tabs extends StatefulWidget {
 
 class _TabState extends State<Tabs> {
 
-  Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> controller = Completer();
   final geoService = GeolocatorService();
-  LocationData currentLocation;
+  // Location location = new Location();
+  // LocationData currentLocation;
 
   bool _isVisibleSearchLocation = true;
   bool _isVisibleSearchWay = false;
 
   String addressFrom = "Điểm bắt đầu";
   String addressTo = "Điểm kết thúc";
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _getCurrentAddress();
+  // }
+  //
+  // _getCurrentAddress() async {
+  //   currentLocation = await location.getLocation();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +102,7 @@ class _TabState extends State<Tabs> {
       ),
       body: Stack(
         children: [
+          //google map
           FutureProvider(
             create: (context) => geoService.getInitialLocation(),
               child: Consumer<Position>(builder: (context, position, widget) {
@@ -293,15 +306,16 @@ class _TabState extends State<Tabs> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber,
-        child: Icon(Icons.my_location, color: Colors.black,),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.amber,
+      //   child: Icon(Icons.my_location, color: Colors.black,),
+      //   onPressed: _centerScreen,
+      // ),
     );
   }
-  Future<void> centerScreen() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(currentLocation.latitude, currentLocation.longitude), zoom: 18)));
-  }
+  // Future<void> _centerScreen() async {
+  //   final GoogleMapController _controller = await controller.future;
+  //   _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+  //       target: LatLng(currentLocation.latitude, currentLocation.longitude), zoom: 15)));
+  // }
 }
