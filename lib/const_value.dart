@@ -1,4 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
+import 'package:emddi_bus/bus_stop.dart';
+import 'package:emddi_bus/route.dart';
 import 'package:flutter/material.dart';
 
 const LIST_ADDRESS = [
@@ -28,3 +31,10 @@ const LIST_ICON_OPTION = [
   Icons.feedback,
   Icons.help_outline
 ];
+
+String OTP = "";
+String PHONE = "";
+String PATH_AVATAR = 'images/avatar.png';
+File FILE_AVATAR;
+List<RouterBus> LIST_ROUTE = [];
+List<BusStop> LIST_BUS_STOP = [];

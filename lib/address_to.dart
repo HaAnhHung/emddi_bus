@@ -2,6 +2,8 @@ import 'package:emddi_bus/const_value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'bus_stop.dart';
+
 class AddressTo extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _AddressTo();
@@ -11,6 +13,27 @@ class AddressTo extends StatefulWidget{
 class _AddressTo extends State<AddressTo>{
 
   List<String> listAddress = LIST_ADDRESS;
+
+  List<BusStop> listSearch = [];
+  bool isVisible = true;
+  bool isVisible1 = false;
+
+  search(String value){
+    if (value == null) {
+      isVisible = true;
+      isVisible1 = false;
+    }
+    else if (value != null) {
+      isVisible = false;
+      isVisible1 = true;
+      listSearch.clear();
+      for (int i=0; i<LIST_BUS_STOP.length; i++){
+        if (LIST_BUS_STOP[i].name.toLowerCase().trim().contains(value.toLowerCase().trim())){
+          listSearch.add(LIST_BUS_STOP[i]);
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +138,11 @@ class _AddressTo extends State<AddressTo>{
                     color: Colors.white,
                     border: Border.all(color: Colors.grey[300], width: 0.5)),
                 child: TextField(
+                  onChanged: (String value){
+                    setState(() {
+                      search(value);
+                    });
+                  },
                   decoration: InputDecoration(
                     hintText: "Tìm điểm dừng",
                     border: InputBorder.none,
@@ -131,6 +159,53 @@ class _AddressTo extends State<AddressTo>{
                   ),
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
+                alignment: Alignment.centerLeft,
+                color: Colors.amber[100],
+                child: Text(
+                  "Danh sách điểm bus",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              //list bus stop
+              Visibility(
+                visible: isVisible,
+                child: Expanded(
+                  child: ListView.separated(
+                      itemBuilder: (BuildContext context, int index){
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                          ),
+                          title: Text("${LIST_BUS_STOP[index].name} "),
+                          subtitle: Text("Các tuyến xe đi qua: ${LIST_BUS_STOP[index].routeId}"),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) => const Divider(),
+                      itemCount: LIST_BUS_STOP.length),
+                ),
+              ),
+              Visibility(
+                visible: isVisible1,
+                child: Expanded(
+                  child: ListView.separated(
+                      itemBuilder: (BuildContext context, int index){
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                          ),
+                          title: Text("${listSearch[index].name} "),
+                          subtitle: Text("Các tuyến xe đi qua: ${listSearch[index].routeId}"),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) => const Divider(),
+                      itemCount: listSearch.length),
+                ),
+              )
             ],
           )
         ]),

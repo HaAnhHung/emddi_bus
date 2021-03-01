@@ -1,0 +1,104 @@
+{
+    "code" : 0,
+    "message" : "Thành công",
+    "data" : {
+        "bus_stop" : [
+            {
+                "router_id": [1, 3],
+                "name" : "Học viện Báo chí tuyên truyền",
+                "latitude" : 21.036729,
+                "longitude" : 105.786386
+            },
+            {
+                "router_id": [1, 4],
+                "name" : "Trường Đại học Sư phạm Hà Nội",
+                "latitude" : 21.036858,
+                "longitude" : 105.782755
+            },
+            {
+                "router_id": [1],
+                "name" : "16 Hồ Tùng Mậu",
+                "latitude" : 21.036813,
+                "longitude" : 105.779082
+            },
+            {
+                "router_id": [1],
+                "name" : "Đại học Thương mại",
+                "latitude" : 21.037349,
+                "longitude" : 105.776051
+            },
+            {
+                "router_id": [1],
+                "name" : "Đại học Thương mại",
+                "latitude" : 21.037515,
+                "longitude" : 105.774334
+            },
+            {
+                "router_id": [1],
+                "name" : "9 Hồ Tùng Mậu",
+                "latitude" : 21.036369,
+                "longitude" : 105.778372
+            },
+            {
+                "router_id": [1],
+                "name" : "Indochina Plaza Hanoi",
+                "latitude" : 21.036476,
+                "longitude" : 105.782491
+            },
+            {
+                "router_id": [1],
+                "name" : "Học viện Báo chí tuyên truyền",
+                "latitude" : 21.036352,
+                "longitude" : 105.786260
+            },
+            {
+                "router_id": [2],
+                "name" : "256 Hoàng Quốc Việt",
+                "latitude" : 21.046022,
+                "longitude" : 105.783806
+            },
+            {
+                "router_id": [2],
+                "name" : "Học viện Chính trị Quốc Gia Hồ Chí Minh",
+                "latitude" : 21.046005,
+                "longitude" : 105.787016
+            },
+            {
+                "router_id": [2],
+                "name" : "Trường Cao đẳng Sư phạm Trung ương",
+                "latitude" : 21.046028,
+                "longitude" : 105.792084
+            },
+            {
+                "router_id": [2],
+                "name" : "247 Hoàng Quốc Việt",
+                "latitude" : 21.046035,
+                "longitude" : 105.796307
+            },
+            {
+                "router_id": [2],
+                "name" : "92 Hoàng Quốc Việt",
+                "latitude" : 21.046354,
+                "longitude" : 105.796869
+            },
+            {
+                "router_id": [2],
+                "name" : "86 Hoàng Quốc Việt",
+                "latitude" : 21.046304,
+                "longitude" : 105.791983
+            },
+            {
+                "router_id": [2],
+                "name" : "212 Hoàng Quốc Việt",
+                "latitude" : 21.046300,
+                "longitude" : 105.787722
+            },
+            {
+                "router_id": [2],
+                "name" : "Học viện kỹ thuật quân sự",
+                "latitude" : 21.046298,
+                "longitude" : 105.784762
+            }
+        ]
+    }
+}

@@ -2,15 +2,20 @@ import 'dart:async';
 
 import 'package:emddi_bus/address_from.dart';
 import 'package:emddi_bus/address_to.dart';
+import 'package:emddi_bus/draw_bus_route.dart';
 import 'package:emddi_bus/history_search_way.dart';
 import 'package:emddi_bus/map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+// import 'package:geolocator/geolocator.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:provider/provider.dart';
 
+import 'bus_stop.dart';
+import 'const_value.dart';
+// import 'geolocator_service.dart';
 import 'geolocator_service.dart';
 import 'menu.dart';
 
@@ -21,10 +26,8 @@ class Tabs extends StatefulWidget {
 
 class _TabState extends State<Tabs> {
 
-  Completer<GoogleMapController> controller = Completer();
+  // Completer<GoogleMapController> controller = Completer();
   final geoService = GeolocatorService();
-  // Location location = new Location();
-  // LocationData currentLocation;
 
   bool _isVisibleSearchLocation = true;
   bool _isVisibleSearchWay = false;
@@ -32,16 +35,26 @@ class _TabState extends State<Tabs> {
   String addressFrom = "Điểm bắt đầu";
   String addressTo = "Điểm kết thúc";
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   _getCurrentAddress();
-  // }
-  //
-  // _getCurrentAddress() async {
-  //   currentLocation = await location.getLocation();
-  // }
+  List<BusStop> listSearch = [];
+  bool isVisible1 = false;
+
+  TextEditingController _txtSearchController = new TextEditingController();
+
+  search(String value){
+    if (value == null) {
+      isVisible1 = false;
+      listSearch.clear();
+    }
+    else if (value != null) {
+      isVisible1 = true;
+      listSearch.clear();
+      for (int i=0; i<LIST_BUS_STOP.length; i++){
+        if (LIST_BUS_STOP[i].name.toLowerCase().trim().contains(value.toLowerCase().trim())){
+          listSearch.add(LIST_BUS_STOP[i]);
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,41 +115,76 @@ class _TabState extends State<Tabs> {
       ),
       body: Stack(
         children: [
-          //google map
+          //map
           FutureProvider(
             create: (context) => geoService.getInitialLocation(),
               child: Consumer<Position>(builder: (context, position, widget) {
-                return (position != null) ? Map(initialPosition: position,) : Center(child: CircularProgressIndicator(),);
+                return (position != null) ? OSMap(initialPosition: position,) : Center(child: CircularProgressIndicator(),);
               },),
           ),
           //search location
+          // GGMap(),
           Visibility(
             visible: _isVisibleSearchLocation,
             child: Container(
-              margin: EdgeInsets.only(left: 15, top: 10, right: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.grey[300],
-                  width: 0.5,
-                ),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Tìm kiếm điểm dừng",
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 15, top: 15),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 25,
+              margin: EdgeInsets.only(left: 15, right: 15),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 15, top: 10, right: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey[300],
+                        width: 0.5,
+                      ),
+                    ),
+                    child: TextField(
+                      controller: _txtSearchController,
+                      onChanged: (String value){
+                        setState(() {
+                          search(value);
+                        });
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Tìm kiếm điểm dừng",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 15, top: 15),
+                          isDense: false,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            size: 25,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: (){
+                              _txtSearchController.clear();
+                            },
+                            icon: Icon(Icons.cancel),
+                            iconSize: 20,
+                            color: Colors.grey[400],
+                          )
+                      ),
+                    ),
                   ),
-                  suffixIcon: Icon(
-                    Icons.cancel,
-                    size: 20,
-                    color: Colors.grey[400],
-                  )
-                ),
+                  // Visibility(
+                  //   visible: isVisible1,
+                  //   child: Expanded(
+                  //     child: ListView.separated(
+                  //         itemBuilder: (BuildContext context, int index){
+                  //           return ListTile(
+                  //             leading: CircleAvatar(
+                  //               backgroundColor: Colors.amber,
+                  //             ),
+                  //             title: Text("${listSearch[index].name} "),
+                  //             subtitle: Text("Các tuyến xe đi qua: ${listSearch[index].routeId}"),
+                  //           );
+                  //         },
+                  //         separatorBuilder: (BuildContext context, int index) => const Divider(),
+                  //         itemCount: listSearch.length),
+                  //   ),
+                  // )
+                ],
               ),
             ),
           ),
@@ -163,7 +211,8 @@ class _TabState extends State<Tabs> {
                           margin: EdgeInsets.only(top: 10, left: 8),
                           child: Column(
                             children: [
-                              //choose address start
+
+                              //choose start address
                               GestureDetector(
                                 onTap: ()async{
                                   final result = await Navigator.push(
@@ -306,16 +355,6 @@ class _TabState extends State<Tabs> {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.amber,
-      //   child: Icon(Icons.my_location, color: Colors.black,),
-      //   onPressed: _centerScreen,
-      // ),
     );
   }
-  // Future<void> _centerScreen() async {
-  //   final GoogleMapController _controller = await controller.future;
-  //   _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-  //       target: LatLng(currentLocation.latitude, currentLocation.longitude), zoom: 15)));
-  // }
 }
